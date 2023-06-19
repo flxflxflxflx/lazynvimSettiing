@@ -3,6 +3,7 @@ require("config.lazy")
 
 local null_ls = require("null-ls")
 
+-- 设置google的java格式化程序
 local google_java_format = {
   method = null_ls.methods.FORMATTING,
   filetypes = { "java" },
@@ -35,4 +36,19 @@ local google_java_format = {
   },
 }
 
+-- 注册google_java_format
 null_ls.register(google_java_format)
+
+-- 设置剪切板 不设置的话会很卡
+vim.g.clipboard = {
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = "win32yank.exe -i --crlf",
+    ["*"] = "win32yank.exe -i --crlf",
+  },
+  paste = {
+    ["+"] = "win32yank.exe -o --crlf",
+    ["*"] = "win32yank.exe -o --crlf",
+  },
+  cache_enable = 0,
+}
